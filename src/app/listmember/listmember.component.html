@@ -1,0 +1,162 @@
+
+<div>
+    <input id="dateInput" type="text" [(ngModel)]="dateInput" name="dateInput" placeholder="ระบุ...">
+    <button (click)="inputDateFn()">ตกลง</button>
+</div>
+
+
+<!--Radio group-->
+<div class="btn-group">
+
+    <button (click)="onRadioModel('เวรดึก')" mdbRadio="Middle" mdbWavesEffect>
+        เวรดึก
+    </button>
+    <button (click)="onRadioModel('เวรเช้า')" mdbRadio="Middle" mdbWavesEffect>
+        เวรเช้า
+    </button>
+    <button (click)="onRadioModel('เวรบ่าย')" mdbRadio="Right" mdbWavesEffect>
+        เวรบ่าย
+    </button>
+    
+    <button class=" text-center h1-responsive  btn-default font-weight-bold ">---{{ radioModel }}---</button>
+</div>
+<!--Radio group-->
+
+
+<div *ngFor="let item of itemPart | async">
+
+    <!-- Dispatch: Team v.1 -->
+    <section class="team-section card text-center ">
+
+        <!-- Section heading -->
+        <h2 class="h1-responsive  btn-default font-weight-bold ">Dispatch Center Team</h2>
+
+        <!-- Section description -->
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-4 mb-md-0 mb-5">
+                <div class="avatar mx-auto">
+                    <img [src]="getImageUrl(item.director)" style="width : 100px ; height: 100px;" class="rounded-circle z-depth-1" alt="Sample avatar">
+                </div>
+                <h5 class="font-weight-bold mt-4 mb-3">{{ item.director}}</h5>
+                <p class="text-uppercase blue-text">
+                    <strong>Director</strong>
+                </p>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-4 mb-md-0 mb-5">
+                <div class="avatar mx-auto">
+                    <img [src]="getImageUrl(item.calltacker1)" style="width : 100px ; height: 100px;" class="rounded-circle z-depth-1" alt="Sample avatar">
+                </div>
+                <h5 class="font-weight-bold mt-4 mb-3">{{ item.calltacker1}}</h5>
+                <p class="text-uppercase blue-text">
+                    <strong>Call Tacker</strong>
+                </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-4 mb-md-0 mb-5">
+                <div class="avatar mx-auto">
+                    <img [src]="getImageUrl(item.calltacker2)" style="width : 100px ; height: 100px;" class="rounded-circle z-depth-1" alt="Sample avatar">
+                </div>
+                <h5 class="font-weight-bold mt-4 mb-3">{{ item.calltacker2}}</h5>
+                <p class="text-uppercase blue-text">
+                    <strong>Call Tacker</strong>
+                </p>
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </section>
+    <!-- Dispatch: Team v.1 -->
+
+
+
+
+    <!-- Operation: Team v.1 -->
+    <section class="team-section card text-center my-5">
+
+        <!-- Section heading -->
+        <h2 class="h1-responsive btn-default  font-weight-bold">Operation Team </h2>
+        <!-- Section description -->
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-lg-6 col-md-4 mb-md-0 mb-5">
+                <div class="avatar mx-auto">
+                    <img [src]="getImageUrl(item.leader1)" style="width : 100px ; height: 100px;" class="rounded-circle z-depth-1" alt="Sample avatar">
+                </div>
+                <h5 class="font-weight-bold mt-4 mb-3">{{ item.leader1}}</h5>
+                <p class="text-uppercase blue-text">
+                    <strong>Nurse/Paramedic</strong>
+                </p>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-6 col-md-4 mb-md-0 mb-5">
+                <div class="avatar mx-auto">
+                    <img [src]="getImageUrl(item.leader2)" style="width : 100px ; height: 100px;" class="rounded-circle z-depth-1" alt="Sample avatar">
+                </div>
+                <h5 class="font-weight-bold mt-4 mb-3">{{ item.leader2}}</h5>
+                <p class="text-uppercase blue-text">
+                    <strong>Nurse/Paramedic</strong>
+                </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-4 mb-md-0 mb-5">
+                <div class="avatar mx-auto">
+                    <img [src]="getImageUrl(item.member1)" style="width : 100px ; height: 100px;" class="rounded-circle z-depth-1" alt="Sample avatar">
+                </div>
+                <h5 class="font-weight-bold mt-4 mb-3">{{ item.member1}}</h5>
+                <p class="text-uppercase blue-text">
+                    <strong>E M T</strong>
+                </p>
+            </div>
+            <!-- Grid column -->
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-4 mb-md-0 mb-5">
+                <div class="avatar mx-auto">
+                    <img [src]="getImageUrl(item.member2)" style="width : 100px ; height: 100px;" class="rounded-circle z-depth-1" alt="Sample avatar">
+                </div>
+                <h5 class="font-weight-bold mt-4 mb-3">{{ item.member2 }}</h5>
+                <p class="text-uppercase blue-text">
+                    <strong>E M T</strong>
+                </p>
+            </div>
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-4 mb-md-0 mb-5">
+                <div class="">
+                    <img [src]="getImageUrl(item.driver)" style="width : 100px ; height: 100px;" class="rounded-circle z-depth-1" alt="Sample avatar">
+                </div>
+                <h5 class="font-weight-bold mt-4 mb-3">{{ item.driver}}</h5>
+                <p class="text-uppercase blue-text">
+                    <strong>Driver Am.</strong>
+                </p>
+            </div>
+            <!-- Grid column -->
+
+
+
+        </div>
+        <!-- Grid row -->
+
+    </section>
+    <!-- Operation: Team v.1 -->
+</div>
+
+

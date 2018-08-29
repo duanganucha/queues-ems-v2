@@ -1,0 +1,339 @@
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark default-color ie-nav" [containerInside]="false">
+  <logo>
+    <a class="logo navbar-brand" href="#">
+      <strong>EMS 1669 sisaket</strong>
+    </a>
+  </logo>
+  <links>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item  waves-light" mdbWavesEffect>
+        <a class="nav-link">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li>
+          <a class="nav-link btn-lg btn-primary" type="button" mdbWavesEffect (click)="onAddMemberModal()">เพิ่มเจ้าหน้าที่</a>
+      </li>
+      <li class="nav-item active  waves-light" mdbWavesEffect>
+        <a class="nav-link btn-lg" [ngClass]="btnColor">{{ onlineStatus }}</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav nav-flex-icons">
+
+      <li class="nav-item waves-light" mdbWavesEffect>
+
+        <!-- <a class="nav-link"><i class="fa fa-unlock-alt" aria-hidden="true"></i></a> -->
+
+        <button type="button" class="btn btn-sm btn-primary waves-light" data-toggle="modal" data-target="#login" (click)="loginModal.show()"
+          mdbWavesEffect>
+          <img src="{{ usericonLogin }}" width="40px" height="40px"> {{ userNameLogin }}
+          <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+        </button>
+      </li>
+    </ul>
+  </links>
+</mdb-navbar>
+
+
+
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="text-left">{{myDate | date:'EEEE , d-M-yyyy'}}</h4>
+
+    <div>
+      <input id="dateInput" type="text" [(ngModel)]="dateInput" name="dateInput" placeholder="ระบุ...">
+      <button (click)="inputDateFn()">ตกลง</button>
+      <button (click)="addMember()">เจ้าหน้าที่</button>
+    </div>
+
+
+    <h1 class="text-right "> {{ myDate | date : 'HH:mm:ss a' }}</h1>
+    <br>
+    <p>
+      <span class="initcap"> {{ (items | async)?.length + 1 }} </span>
+    </p>
+  </div>
+</div>
+
+<div class="card" style="padding-left:20px;">
+  <div class="row">
+
+    <div class="col-md-5">
+      <div class="md-form input-group">
+        <div class="input-group-btn">
+          <button class="btn btn-blue-grey waves-light" type="button" mdbWavesEffect>ป้อนหน่วย</button>
+        </div>
+        <input type="text" [(ngModel)]="team" name="team" placeholder="ระบุ...อบต หรือ อำเภอ">
+      </div>
+
+    </div>
+
+
+
+
+    <div class="col-md-7">
+
+      <div class="md-form input-group">
+        <button class="btn btn-blue-grey waves-light" type="button" mdbWavesEffect>เลือกเหตุการณ์</button>
+        <select [(ngModel)]="selectedValue">
+          <option selected value="" class="dropdown-item"> ---กรุณาเลือกรายการ---</option>
+          <option *ngFor="let scene of scenes" [value]="scene" class="dropdown-item">{{ scene }}</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="row" style="padding-top: 15px">
+
+    <div class="col-md-7">
+      <button type="button" [disabled]="!navigator_check" class="btn btn-lg btn-danger waves-light  btn-block" mdbWavesEffect (click)="addQueue()">
+        <i class="fa fa-plus-square fa-5x"></i>
+        <p> </p>เพิ่มลำดับ
+      </button>
+    </div>
+
+
+    <div class="col-md-3">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default waves-light " mdbWavesEffect disabled>
+          <i class="fa fa-fast-backward" aria-hidden="true"></i>
+        </button>
+        <p style="padding-top: 10px; padding-right: 5px; padding-left: 5px ">
+          <span class="initcap2"> {{ (items | async)?.length + 1 }} </span>
+        </p>
+        <button type="button" class="btn btn-info waves-light " mdbWavesEffect disabled>
+          <i class="fa fa-fast-forward" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+  <br>
+</div>
+<br>
+
+<div mdbModal #loginModal="mdb-modal" class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <!--Modal: Avatar-->
+  <div class="modal-dialog modal-sm cascading-modal modal-avatar" role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Header-->
+      <div class="modal-header">
+        <img src="{{ userAvatar }}" class="rounded-circle img-responsive">
+      </div>
+      <!--Body-->
+      <div class="modal-body text-center mb-1">
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle waves-light" mdbWavesEffect>
+            คุณ
+          </button>
+          <select [ngModel]="selectedUser" (ngModelChange)="onChange($event)">
+            <option [ngValue]="user" *ngFor="let user of users">{{ user.name}}</option>
+          </select>
+        </div>
+        <div class="text-center" style="padding-top: 15px">
+          <button class="btn btn-cyan mt-1 waves-effect waves-light" (click)="loginModal.hide()" (click)="onLogin()">{{loginLabel}}
+            <i class="fa fa-sign-in ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+  <!--/Modal: Avatar-->
+
+
+</div>
+
+
+<!-- <button class="btn btn-cyan mt-1 waves-effect waves-light" (click)="valueChange()">date click</button>
+<input id="datepicker" type="text" [(ngModel)]="datepick" name="datepick" placeholder="ระบุ..." (blur)="datepick = $event.target.value">
+<p>Look at me! {{datepick}}</p> -->
+
+
+<!--Modal: Create team-->
+<div mdbModal #addMember="mdb-modal" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Header-->
+      <div class="modal-header light-blue darken-3 white-text">
+        <h4 class="title">
+          <i class="fa fa-pencil"></i> เจ้าหน้าประจำวัน ( {{ radioModel }} )</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="addMember.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Body-->
+      <!-- <fieldset class="form-group" [(ngModel)]="selected">
+        <button *ngFor="let a of members" [value]="a" (change)="radioChange(event)">
+          {{a}}
+        </button>
+      </fieldset> -->
+
+      <form [formGroup]="Form" autocomplete="off" (ngSubmit)="onSubmit()" class="modal-body mb-0">
+
+        <!--Radio group-->
+        <!-- <fieldset class="form-group">
+          <strong>เวร</strong> &nbsp; &nbsp;
+          <i class="fa fa-dashboard prefix"> </i> &nbsp; &nbsp;
+          <input type="radio" formControlName="part" value="เวรดึก"> เวรดึก
+          <input type="radio" formControlName="part" value="เวรเช้า"> เวรเช้า
+          <input type="radio" formControlName="part" value="เวรบ่าย"> เวรบ่าย
+        </fieldset> -->
+
+        <!--Radio group-->
+        <div class="btn-group">
+
+          <label class="btn btn-blue-grey btn-sm waves-light" (click)="onRadioModel('เวรดึก')" mdbRadio="Middle" mdbWavesEffect>
+            เวรดึก
+          </label>
+          <label class="btn btn-blue-grey btn-sm waves-light" (click)="onRadioModel('เวรเช้า')" mdbRadio="Middle" mdbWavesEffect>
+            เวรเช้า
+          </label>
+          <label class="btn btn-blue-grey  btn-sm waves-light" (click)="onRadioModel('เวรบ่าย')" mdbRadio="Right" mdbWavesEffect>
+            เวรบ่าย
+          </label>
+        </div>
+        <!--Radio group-->
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <!-- เพิ่ม -->
+
+
+
+            <div class="list-group">
+
+              <a href="#" class="list-group-item active waves-effect">
+                เวรศูนย์รับแจ้งเหตุและสั่งการ ( {{ radioModel }} )
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                พยาบาลสั่งการ : <select id="leader" formControlName="director">
+                  <option *ngFor="let leader of leaders" [ngValue]="leader">{{ leader }}</option>
+                </select>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                เจ้าหน้าที่สื่อสาร1 (09) <select id="member" formControlName="calltacker1">
+                  <option *ngFor="let member of members" [ngValue]="member">{{ member }}</option>
+                </select>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                เจ้าหน้าที่สื่อสาร2 (08) <select id="member" formControlName="calltacker2">
+                  <option *ngFor="let member of members" [ngValue]="member">{{ member }}</option>
+                </select>
+              </a>
+            </div>
+
+            <div class="list-group">
+              <a href="#" class="list-group-item active waves-effect">
+                เวรออกปฏิบัติการ( {{ radioModel }} )
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                พยาบาล/paramedic1 <select id="leader" formControlName="leader1">
+                  <option *ngFor="let leader of leaders" [ngValue]="leader">{{ leader }}</option>
+                </select>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                พยาบาล/paramedic2 <select id="leader" formControlName="leader2">
+                  <option *ngFor="let leader of leaders" [ngValue]="leader">{{ leader }}</option>
+                </select>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                EMT 1 <select id="member" formControlName="member1">
+                  <option *ngFor="let member of members" [ngValue]="member">{{ member }}</option>
+                </select>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                EMT 2 <select id="member" formControlName="member2">
+                  <option *ngFor="let member of members" [ngValue]="member">{{ member }}</option>
+                </select>
+              </a>
+
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                Driver <select id="driver" formControlName="driver">
+                  <option *ngFor="let driver of drivers" [ngValue]="driver">{{ driver }}</option>
+                </select>
+              </a>
+
+            </div>
+          </div>
+          <!-- เพิ่ม -->
+
+          <!-- show -->
+          <div class="col-md-6"  *ngFor="let item of itemPart | async" >
+
+            <div class="list-group" >
+
+              <a href="#" class="list-group-item  waves-effect">
+                เวรศูนย์รับแจ้งเหตุและสั่งการ ( {{ radioModel }} )
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                พยาบาลสั่งการ : {{ item.director }}
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                เจ้าหน้าที่สื่อสาร1 (09) : {{ item.calltacker1 }} 
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                เจ้าหน้าที่สื่อสาร2 (08) : {{ item.calltacker2 }}
+              </a>
+            </div>
+
+            <div class="list-group">
+              <a href="#" class="list-group-item  waves-effect">
+                เวรออกปฏิบัติการ( {{ radioModel }} )
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                พยาบาล/paramedic1 : {{ item.leader1 }}
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                พยาบาล/paramedic2 : {{ item.leader2 }} 
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                EMT 1 : {{ item.member1 }}
+              </a>
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                EMT 2 : {{ item.member2 }}
+              </a>
+
+              <a href="#" class="list-group-item list-group-item-action waves-effect">
+                Driver : {{ item.driver }}
+              </a>
+            </div>
+          </div>
+          <!-- เพิ่ม -->
+        </div>
+
+
+
+
+        <div class="text-center mt-1-half">
+          <button [disabled]="Form.invalid" type="submit" class="btn btn-info mb-2 waves-light" mdbWavesEffect> บันทึก
+            <i class="fa fa-send ml-1"></i>
+          </button>
+         
+          <button (click)="onDeleteForm(item)" type="button" *ngIf="edit_check" class="btn btn-unique mb-2 waves-light" mdbWavesEffect>
+            ลบหน่วยปฏิบัติการ
+            <i class="fa fa-trash ml-1"></i>
+          </button>
+        </div>
+      </form>
+
+
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: Create form-->
+
+
+
